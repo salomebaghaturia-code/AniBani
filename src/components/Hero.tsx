@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useModal } from "@/context/ModalContext";
+import { trackClick } from "@/lib/analytics";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -85,12 +86,13 @@ export default function Hero() {
                   >
                     {t.hero.ctaPrimary}
                   </button>
-                  <button
-                    onClick={() => open("hero_early_access")}
+                  <a
+                    href="#early-access"
+                    onClick={() => void trackClick("hero_early_access")}
                     className="inline-flex items-center justify-center px-7 py-3 bg-white/15 backdrop-blur hover:bg-white/25 text-white border-2 border-white rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 text-sm md:text-base"
                   >
                     {t.hero.ctaSecondary}
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

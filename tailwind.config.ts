@@ -12,9 +12,9 @@ const config: Config = {
       },
       colors: {
         coral: {
-          DEFAULT: '#F26A3E',
-          light: '#FF8A5C',
-          dark: '#E0561F'
+          DEFAULT: '#EB5E5A',
+          light: '#F07A77',
+          dark: '#D94A46'
         },
         cream: '#FFF8F0',
         beige: '#FDF0E6',
@@ -24,7 +24,7 @@ const config: Config = {
         bluebrand: '#A9C8E8'
       },
       boxShadow: {
-        card: '0 10px 30px -10px rgba(242, 106, 62, 0.18)',
+        card: '0 10px 30px -10px rgba(235, 94, 90, 0.18)',
         soft: '0 6px 24px -8px rgba(45, 45, 45, 0.12)'
       },
       borderRadius: {

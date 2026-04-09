@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useModal } from "@/context/ModalContext";
 import { trackClick } from "@/lib/analytics";
@@ -48,12 +49,23 @@ export default function EmailCTA() {
   };
 
   return (
-    <section className="relative py-16 md:py-24 bg-gradient-to-br from-coral via-coral-light to-coral overflow-hidden">
+    <section id="early-access" className="relative py-16 md:py-24 overflow-hidden">
+      {/* Scenic meadow/adventure background */}
+      <Image
+        src="/images/backgrounds/meadow-scene.png"
+        alt=""
+        fill
+        aria-hidden
+        priority={false}
+        className="object-cover pointer-events-none select-none"
+      />
+      {/* Coral tint overlay for text readability + brand color */}
+      <div className="absolute inset-0 bg-gradient-to-br from-coral/85 via-coral-light/80 to-coral/90 pointer-events-none" />
       {/* Decorative blobs */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
 
-      <div className="container-page relative">
+      <div className="container-page relative z-10">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="font-display text-3xl md:text-4xl lg:text-[42px] font-extrabold text-white leading-tight">

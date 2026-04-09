@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useModal } from "@/context/ModalContext";
 import Reveal from "./Reveal";
@@ -9,8 +10,19 @@ export default function Pricing() {
   const { open } = useModal();
 
   return (
-    <section id="pricing" className="bg-beige py-16 md:py-24">
-      <div className="container-page">
+    <section id="pricing" className="relative bg-beige py-16 md:py-24 overflow-hidden">
+      {/* Scenic meadow background for consistency with EmailCTA */}
+      <Image
+        src="/images/backgrounds/meadow-scene.png"
+        alt=""
+        fill
+        aria-hidden
+        className="object-cover opacity-40 pointer-events-none select-none"
+      />
+      {/* Soft cream overlay so pricing cards remain highly readable */}
+      <div className="absolute inset-0 bg-cream/70 pointer-events-none" />
+
+      <div className="container-page relative z-10">
         <Reveal>
           <h2 className="section-title mb-10 md:mb-14">{t.pricing.title}</h2>
         </Reveal>

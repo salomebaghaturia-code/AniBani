@@ -13,21 +13,24 @@ export default function Footer() {
     <footer id="contact" className="bg-ink text-white">
       <div className="container-page py-14 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-          {/* Logo + tagline + store badges */}
+          {/* Logo + "Download Ani Bani" + store badges */}
           <div className="md:col-span-1">
             <Image
               src={lang === "ka" ? "/images/logo/logo-ka.png" : "/images/logo/logo-en.png"}
               alt="Ani Bani"
               width={504}
               height={124}
-              className="h-12 w-auto mb-4"
+              className="h-12 w-auto mb-5"
             />
-            <p className="text-white/70 text-sm leading-relaxed mb-5">
-              {t.footer.tagline} — {t.footer.available}
+            <h4 className="font-display font-extrabold text-white text-xl md:text-2xl mb-1.5 leading-tight">
+              {t.footer.tagline}
+            </h4>
+            <p className="text-white/60 text-xs uppercase tracking-wider font-semibold mb-4">
+              {t.footer.available}
             </p>
             <button
               onClick={() => open("footer_appstore")}
-              className="block w-full max-w-xs hover:opacity-80 transition-opacity"
+              className="block w-full max-w-xs hover:opacity-90 transition-opacity bg-white/5 rounded-xl p-2"
               aria-label="Download on the App Store / Get it on Google Play"
             >
               <Image
