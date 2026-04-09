@@ -9,15 +9,6 @@ export default function Games() {
 
   return (
     <section id="games" className="relative bg-beige py-16 md:py-24 overflow-hidden">
-      {/* Decorative wave background */}
-      <Image
-        src="/images/backgrounds/games-wave.png"
-        alt=""
-        fill
-        aria-hidden
-        className="object-cover opacity-90 pointer-events-none select-none"
-      />
-
       {/* Goat character — bottom-left decoration, hidden on smallest viewports */}
       <div className="hidden sm:block absolute left-0 bottom-0 w-[140px] md:w-[180px] lg:w-[220px] z-10 pointer-events-none select-none">
         <Image

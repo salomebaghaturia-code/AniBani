@@ -15,11 +15,11 @@ export default function Hero() {
         <div className="relative rounded-[28px] md:rounded-[40px] overflow-hidden shadow-soft bg-cream">
           {/*
             Sizing strategy:
-              - mobile (< 640):  fixed min-height 560px so all content fits without clipping
-              - sm   (640-1023): min-height 480px (still dominant over aspect ratio)
+              - mobile (< 640):  fixed min-height 640px for large character + text + buttons
+              - sm   (640-1023): min-height 520px
               - lg+  (1024+):    drop min-height, use 16:9 aspect for desktop framing
           */}
-          <div className="relative w-full min-h-[560px] sm:min-h-[480px] lg:min-h-0 lg:aspect-[16/9]">
+          <div className="relative w-full min-h-[640px] sm:min-h-[520px] lg:min-h-0 lg:aspect-[16/9]">
             {/* Background scene (clean) */}
             <Image
               src="/images/hero/background.png"
@@ -29,11 +29,15 @@ export default function Hero() {
               className="object-cover"
             />
 
-            {/* Strong dark gradient overlay — transparent at top, dark at bottom (covers ~75%) */}
-            <div className="absolute inset-x-0 bottom-0 h-[75%] bg-gradient-to-b from-transparent via-black/40 to-black/75 pointer-events-none" />
+            {/* Strong dark gradient overlay — transparent at top, dark at bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-[60%] md:h-[75%] bg-gradient-to-b from-transparent via-black/50 to-black/80 pointer-events-none" />
 
-            {/* Bunny character (lower-left) */}
-            <div className="absolute left-[2%] md:left-[3%] bottom-0 w-[26%] sm:w-[22%] md:w-[22%] lg:w-[20%] z-20 pointer-events-none">
+            {/*
+              Bunny character:
+                - mobile: HUGE, centered, top-half of hero (~65% width)
+                - desktop: small, lower-left (~20% width)
+            */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-[4%] w-[68%] max-w-[320px] sm:left-[3%] sm:translate-x-0 sm:top-auto sm:bottom-0 sm:w-[30%] sm:max-w-none md:left-[3%] md:w-[22%] lg:w-[20%] z-20 pointer-events-none">
               <Image
                 src="/images/characters/ani-bunny.png"
                 alt="Ani the bunny"
@@ -43,8 +47,8 @@ export default function Hero() {
               />
             </div>
 
-            {/* Cat character (lower-right) — visible on all viewports */}
-            <div className="absolute right-[3%] bottom-[4%] w-[22%] sm:w-[18%] md:w-[14%] lg:w-[13%] z-20 pointer-events-none">
+            {/* Cat character (lower-right) — hidden on mobile, visible from sm+ */}
+            <div className="hidden sm:block absolute right-[3%] bottom-[4%] w-[22%] sm:w-[18%] md:w-[14%] lg:w-[13%] z-20 pointer-events-none">
               <Image
                 src="/images/characters/bani-cat.png"
                 alt="Bani the cat"
@@ -56,17 +60,16 @@ export default function Hero() {
 
             {/*
               Text overlay positioning:
-                - mobile/sm: vertically centered (justify-center) with safety padding so it
-                  doesn't collide with the bunny at the bottom
-                - md+: bottom-anchored (justify-end pb-[8%]) to match the desktop mockup
+                - mobile: bottom-anchored below the big bunny
+                - md+: bottom-anchored (justify-end pb-[8%]) matching desktop mockup
             */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center md:justify-end px-6 md:px-12 pt-16 pb-36 sm:pb-32 md:pt-0 md:pb-[8%] z-10 pointer-events-none">
+            <div className="absolute inset-0 flex flex-col items-center justify-end px-6 md:px-12 pb-7 md:pb-[8%] z-10 pointer-events-none">
               <div className="max-w-3xl lg:max-w-4xl text-center pointer-events-auto">
                 <h1
-                  className="font-display font-extrabold text-white text-[26px] sm:text-[28px] md:text-[32px] lg:text-[40px] xl:text-[44px] 2xl:text-[48px]"
+                  className="font-display font-extrabold text-white text-[22px] sm:text-[28px] md:text-[32px] lg:text-[40px] xl:text-[44px] 2xl:text-[48px]"
                   style={{
-                    lineHeight: 1.4,
-                    textShadow: "0 2px 8px rgba(0,0,0,0.5)"
+                    lineHeight: 1.35,
+                    textShadow: "0 2px 8px rgba(0,0,0,0.6)"
                   }}
                 >
                   {t.hero.titleLines[0]}
@@ -74,12 +77,12 @@ export default function Hero() {
                   {t.hero.titleLines[1]}
                 </h1>
                 <p
-                  className="mt-4 md:mt-5 text-white/95 font-medium leading-relaxed mx-auto max-w-2xl text-[15px] sm:text-base md:text-base lg:text-lg"
-                  style={{ textShadow: "0 2px 6px rgba(0,0,0,0.5)" }}
+                  className="mt-3 md:mt-5 text-white/95 font-medium leading-relaxed mx-auto max-w-2xl text-[13px] sm:text-base md:text-base lg:text-lg"
+                  style={{ textShadow: "0 2px 6px rgba(0,0,0,0.6)" }}
                 >
                   {t.hero.subtitle}
                 </p>
-                <div className="mt-6 md:mt-7 flex flex-wrap gap-3 justify-center">
+                <div className="mt-5 md:mt-7 flex flex-wrap gap-3 justify-center">
                   <button
                     onClick={() => open("hero_download")}
                     className="btn-primary text-sm md:text-base"

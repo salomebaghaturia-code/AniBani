@@ -10,17 +10,19 @@ export default function Pricing() {
   const { open } = useModal();
 
   return (
-    <section id="pricing" className="relative bg-beige py-16 md:py-24 overflow-hidden">
-      {/* Scenic meadow background for consistency with EmailCTA */}
-      <Image
-        src="/images/backgrounds/meadow-scene.png"
-        alt=""
-        fill
+    <section id="pricing" className="relative bg-beige pt-16 md:pt-24 pb-40 md:pb-48 overflow-hidden">
+      {/* Scenic meadow decoration — bottom strip only, transitions into EmailCTA */}
+      <div
         aria-hidden
-        className="object-cover opacity-40 pointer-events-none select-none"
-      />
-      {/* Soft cream overlay so pricing cards remain highly readable */}
-      <div className="absolute inset-0 bg-cream/70 pointer-events-none" />
+        className="absolute left-0 right-0 bottom-0 h-[160px] md:h-[200px] pointer-events-none select-none"
+      >
+        <Image
+          src="/images/backgrounds/meadow-scene.png"
+          alt=""
+          fill
+          className="object-cover object-top"
+        />
+      </div>
 
       <div className="container-page relative z-10">
         <Reveal>

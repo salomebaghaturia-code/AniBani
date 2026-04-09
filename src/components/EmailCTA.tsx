@@ -49,7 +49,7 @@ export default function EmailCTA() {
   };
 
   return (
-    <section id="early-access" className="relative py-16 md:py-24 overflow-hidden">
+    <section id="early-access" className="relative py-16 md:py-24 bg-coral overflow-hidden">
       {/* Scenic meadow/adventure background */}
       <Image
         src="/images/backgrounds/meadow-scene.png"
@@ -59,11 +59,10 @@ export default function EmailCTA() {
         priority={false}
         className="object-cover pointer-events-none select-none"
       />
-      {/* Coral tint overlay for text readability + brand color */}
-      <div className="absolute inset-0 bg-gradient-to-br from-coral/85 via-coral-light/80 to-coral/90 pointer-events-none" />
-      {/* Decorative blobs */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+      {/* Semi-transparent coral tint — meadow mountains/sun remain clearly visible */}
+      <div className="absolute inset-0 bg-gradient-to-br from-coral/55 via-coral-light/45 to-coral/60 pointer-events-none" />
+      {/* Extra dark gradient at bottom for text legibility over the meadow */}
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-coral-dark/40 to-transparent pointer-events-none" />
 
       <div className="container-page relative z-10">
         <Reveal>
@@ -83,7 +82,7 @@ export default function EmailCTA() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="mt-8 flex flex-col sm:flex-row gap-3 max-w-lg mx-auto bg-white p-2 rounded-full shadow-2xl"
+                className="mt-8 flex flex-col sm:flex-row gap-3 max-w-lg mx-auto bg-white p-2 rounded-3xl sm:rounded-full shadow-2xl"
               >
                 <input
                   type="email"
