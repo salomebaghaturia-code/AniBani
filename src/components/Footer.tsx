@@ -72,13 +72,13 @@ export default function Footer() {
             <h4 className="font-display font-bold text-lg mb-4">{t.footer.links.contact}</h4>
             <ul className="space-y-2 text-white/70 text-sm">
               <li>
-                <a href="mailto:hello@anibani.ge" className="hover:text-coral transition-colors">
-                  hello@anibani.ge
+                <a href="mailto:salomebaghaturia@anibani.app" className="hover:text-coral transition-colors break-all">
+                  salomebaghaturia@anibani.app
                 </a>
               </li>
               <li>
-                <a href="tel:+995555000000" className="hover:text-coral transition-colors">
-                  +995 555 00 00 00
+                <a href="tel:+995557102107" className="hover:text-coral transition-colors">
+                  +995 557 10 21 07
                 </a>
               </li>
               <li>{lang === "ka" ? "თბილისი, საქართველო" : "Tbilisi, Georgia"}</li>
@@ -86,7 +86,9 @@ export default function Footer() {
 
             <div className="flex gap-3 mt-5">
               <a
-                href="#"
+                href="https://www.facebook.com/anibaniapp"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Facebook"
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-coral flex items-center justify-center transition-colors"
               >
@@ -95,7 +97,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/anibaniapp"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-coral flex items-center justify-center transition-colors"
               >
