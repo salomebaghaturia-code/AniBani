@@ -1,81 +1,23 @@
 /**
- * Local JSON file storage with atomic writes and per-file in-process locking.
+ * JSON storage abstraction with two backends:
  *
- * Future: this module is the only place that touches disk for waitlist/clicks/sessions
- * data, so swapping to Google Cloud Storage later only requires changing readJSON/writeJSON.
+ *   - LOCAL  (default)            — reads/writes files in <projectRoot>/data/
+ *   - GCS    (when GCS_BUCKET_NAME is set, e.g. on Cloud Run) — uses Google Cloud Storage
+ *
+ * Same public API for both: readJSON / writeJSON / withLock / updateJSON.
+ *
+ * Concurrency: in-process per-file Promise lock chain. This is sufficient for a single
+ * Cloud Run instance. If you scale to multiple instances, you'll need a distributed lock
+ * (e.g. GCS preconditions on the generation number, or Firestore).
  */
 
 import { promises as fs } from "fs";
 import path from "path";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+// ---------- Lock chain (same shape regardless of backend) ----------
 
-/** Per-file lock chain. Each call adds a new tail; new callers await the previous tail. */
 const lockTails = new Map<string, Promise<void>>();
 
-async function ensureDataDir(): Promise<void> {
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-  } catch {
-    // ignore — directory already exists
-  }
-}
-
-function resolveFile(filename: string): string {
-  // Reject path traversal
-  if (filename.includes("/") || filename.includes("\\") || filename.includes("..")) {
-    throw new Error(`Invalid storage filename: ${filename}`);
-  }
-  return path.join(DATA_DIR, filename);
-}
-
-/**
- * Reads and parses a JSON file. Returns `defaultValue` if the file doesn't exist
- * (or is empty/corrupt — corrupt files log a warning before falling back).
- */
-export async function readJSON<T>(filename: string, defaultValue: T): Promise<T> {
-  await ensureDataDir();
-  const fp = resolveFile(filename);
-  try {
-    const raw = await fs.readFile(fp, "utf-8");
-    if (!raw.trim()) return defaultValue;
-    return JSON.parse(raw) as T;
-  } catch (err: unknown) {
-    const code = (err as NodeJS.ErrnoException)?.code;
-    if (code === "ENOENT") return defaultValue;
-    if (err instanceof SyntaxError) {
-      console.warn(`[storage] ${filename} is corrupt, returning default. Error:`, err.message);
-      return defaultValue;
-    }
-    throw err;
-  }
-}
-
-/**
- * Atomically writes JSON to disk. Uses tmp file + rename so a crash mid-write
- * cannot leave the destination file half-written.
- *
- * Note: this is `write only`. For read-modify-write, wrap the entire sequence in
- * `withLock` so reads inside the lock observe writes from earlier holders.
- */
-export async function writeJSON<T>(filename: string, data: T): Promise<void> {
-  await ensureDataDir();
-  const fp = resolveFile(filename);
-  const tmp = `${fp}.tmp.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2, 8)}`;
-  const json = JSON.stringify(data, null, 2);
-  await fs.writeFile(tmp, json, "utf-8");
-  // fs.rename is atomic on the same filesystem
-  await fs.rename(tmp, fp);
-}
-
-/**
- * Serializes operations on a single file. Use this around any read-modify-write
- * sequence to prevent two requests from clobbering each other's changes.
- *
- * Implementation: each call appends a new "next" promise to the file's lock tail.
- * The new caller awaits the previous tail before running, then resolves its own
- * tail when done. Subsequent callers chain off the new tail.
- */
 export async function withLock<T>(filename: string, fn: () => Promise<T>): Promise<T> {
   const previous = lockTails.get(filename) ?? Promise.resolve();
   let release!: () => void;
@@ -91,18 +33,128 @@ export async function withLock<T>(filename: string, fn: () => Promise<T>): Promi
     return await fn();
   } finally {
     release();
-    // If we're the most recent tail and our chain has fully drained, clean up
-    // to keep the map from growing unboundedly across restarts.
-    queueMicrotask(() => {
-      const current = lockTails.get(filename);
-      if (current === previous.then(() => next)) {
-        // Best-effort cleanup; safe to leave entries either way.
-      }
-    });
   }
 }
 
-/** Convenient read-modify-write helper. */
+// ---------- Backend selection ----------
+
+const GCS_BUCKET = process.env.GCS_BUCKET_NAME?.trim() || "";
+const useGCS = GCS_BUCKET.length > 0;
+
+function isValidFilename(filename: string): boolean {
+  return !filename.includes("/") && !filename.includes("\\") && !filename.includes("..");
+}
+
+function assertValid(filename: string): void {
+  if (!isValidFilename(filename)) {
+    throw new Error(`Invalid storage filename: ${filename}`);
+  }
+}
+
+// ---------- LOCAL filesystem backend ----------
+
+const DATA_DIR = path.join(process.cwd(), "data");
+
+async function ensureLocalDir(): Promise<void> {
+  try {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+  } catch {
+    // ignore
+  }
+}
+
+async function readJSONLocal<T>(filename: string, defaultValue: T): Promise<T> {
+  await ensureLocalDir();
+  const fp = path.join(DATA_DIR, filename);
+  try {
+    const raw = await fs.readFile(fp, "utf-8");
+    if (!raw.trim()) return defaultValue;
+    return JSON.parse(raw) as T;
+  } catch (err: unknown) {
+    const code = (err as NodeJS.ErrnoException)?.code;
+    if (code === "ENOENT") return defaultValue;
+    if (err instanceof SyntaxError) {
+      console.warn(`[storage:local] ${filename} is corrupt, returning default:`, err.message);
+      return defaultValue;
+    }
+    throw err;
+  }
+}
+
+async function writeJSONLocal<T>(filename: string, data: T): Promise<void> {
+  await ensureLocalDir();
+  const fp = path.join(DATA_DIR, filename);
+  const tmp = `${fp}.tmp.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2, 8)}`;
+  const json = JSON.stringify(data, null, 2);
+  await fs.writeFile(tmp, json, "utf-8");
+  await fs.rename(tmp, fp);
+}
+
+// ---------- GCS backend ----------
+//
+// We lazy-import @google-cloud/storage so the local-dev path doesn't pay the
+// require cost (and so the bundled standalone server doesn't need GCS creds
+// to start when running locally).
+
+type GCSBucket = {
+  file(name: string): {
+    download(): Promise<[Buffer]>;
+    save(data: string, opts?: { contentType?: string; resumable?: boolean }): Promise<unknown>;
+    exists(): Promise<[boolean]>;
+  };
+};
+
+let cachedBucket: GCSBucket | null = null;
+async function getBucket(): Promise<GCSBucket> {
+  if (cachedBucket) return cachedBucket;
+  const { Storage } = await import("@google-cloud/storage");
+  const storage = new Storage();
+  cachedBucket = storage.bucket(GCS_BUCKET) as unknown as GCSBucket;
+  return cachedBucket;
+}
+
+async function readJSONGCS<T>(filename: string, defaultValue: T): Promise<T> {
+  const bucket = await getBucket();
+  const file = bucket.file(filename);
+  try {
+    const [buf] = await file.download();
+    const raw = buf.toString("utf-8");
+    if (!raw.trim()) return defaultValue;
+    return JSON.parse(raw) as T;
+  } catch (err: unknown) {
+    const code = (err as { code?: number | string })?.code;
+    // 404 from GCS = object doesn't exist yet
+    if (code === 404 || code === "404") return defaultValue;
+    if (err instanceof SyntaxError) {
+      console.warn(`[storage:gcs] ${filename} is corrupt, returning default:`, err.message);
+      return defaultValue;
+    }
+    console.error(`[storage:gcs] readJSON ${filename} error:`, err);
+    throw err;
+  }
+}
+
+async function writeJSONGCS<T>(filename: string, data: T): Promise<void> {
+  const bucket = await getBucket();
+  const file = bucket.file(filename);
+  const json = JSON.stringify(data, null, 2);
+  // resumable: false → faster for small JSON files
+  await file.save(json, { contentType: "application/json; charset=utf-8", resumable: false });
+}
+
+// ---------- Public API (dispatches to selected backend) ----------
+
+export async function readJSON<T>(filename: string, defaultValue: T): Promise<T> {
+  assertValid(filename);
+  return useGCS ? readJSONGCS(filename, defaultValue) : readJSONLocal(filename, defaultValue);
+}
+
+export async function writeJSON<T>(filename: string, data: T): Promise<void> {
+  assertValid(filename);
+  return useGCS ? writeJSONGCS(filename, data) : writeJSONLocal(filename, data);
+}
+
+/** Convenient read-modify-write helper, with locking. */
 export async function updateJSON<T>(
   filename: string,
   defaultValue: T,
@@ -114,4 +166,9 @@ export async function updateJSON<T>(
     await writeJSON(filename, next);
     return next;
   });
+}
+
+/** Diagnostic — exported so the admin layer can show which backend is in use. */
+export function getStorageBackend(): "gcs" | "local" {
+  return useGCS ? "gcs" : "local";
 }

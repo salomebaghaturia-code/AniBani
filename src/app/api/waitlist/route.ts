@@ -20,11 +20,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
-    let newEntry: WaitlistEntry | null = null;
+    let createdId = 0;
 
     await updateJSON<WaitlistEntry[]>(FILES.WAITLIST, [], (current) => {
       const nextId = current.length === 0 ? 1 : Math.max(...current.map((e) => e.id)) + 1;
-      newEntry = {
+      const entry: WaitlistEntry = {
         id: nextId,
         email,
         name,
@@ -34,10 +34,11 @@ export async function POST(req: NextRequest) {
         language,
         created_at: new Date().toISOString()
       };
-      return [...current, newEntry];
+      createdId = nextId;
+      return [...current, entry];
     });
 
-    return NextResponse.json({ ok: true, id: newEntry?.id });
+    return NextResponse.json({ ok: true, id: createdId });
   } catch (err) {
     console.error("waitlist error", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

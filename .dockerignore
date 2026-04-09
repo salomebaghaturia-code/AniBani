@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+.gitignore
+.env
+.env*.local
+/data/*.json
+/data/*.db
+/data/*.db-shm
+/data/*.db-wal
+README.md
+Dockerfile
+.dockerignore
+.vscode
+.idea
+*.log
