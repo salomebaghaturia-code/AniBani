@@ -42,8 +42,8 @@ export default function Hero() {
               />
             </div>
 
-            {/* Cat character (lower-right) — hidden on the smallest viewports */}
-            <div className="hidden sm:block absolute right-[3%] bottom-[4%] w-[16%] md:w-[14%] lg:w-[13%] z-20 pointer-events-none">
+            {/* Cat character (lower-right) — visible on all viewports */}
+            <div className="absolute right-[3%] bottom-[4%] w-[22%] sm:w-[18%] md:w-[14%] lg:w-[13%] z-20 pointer-events-none">
               <Image
                 src="/images/characters/bani-cat.png"
                 alt="Bani the cat"
