@@ -14,12 +14,12 @@ export default function Hero() {
       <div className="container-page pt-6 md:pt-10 pb-12 md:pb-20">
         <div className="relative rounded-[28px] md:rounded-[40px] overflow-hidden shadow-soft bg-cream">
           {/*
-            Sizing strategy:
-              - mobile (< 640):  fixed min-height 640px for large character + text + buttons
+            Sizing strategy (mobile overlap-proof):
+              - mobile (< 640):  min-height 720px — bunny in top ~260px, text+buttons in bottom ~280px, guaranteed no overlap
               - sm   (640-1023): min-height 520px
               - lg+  (1024+):    drop min-height, use 16:9 aspect for desktop framing
           */}
-          <div className="relative w-full min-h-[640px] sm:min-h-[520px] lg:min-h-0 lg:aspect-[16/9]">
+          <div className="relative w-full min-h-[720px] sm:min-h-[520px] lg:min-h-0 lg:aspect-[16/9]">
             {/* Background scene (clean) */}
             <Image
               src="/images/hero/background.png"
@@ -29,15 +29,15 @@ export default function Hero() {
               className="object-cover"
             />
 
-            {/* Strong dark gradient overlay — transparent at top, dark at bottom */}
-            <div className="absolute inset-x-0 bottom-0 h-[60%] md:h-[75%] bg-gradient-to-b from-transparent via-black/50 to-black/80 pointer-events-none" />
+            {/* Dark gradient — stronger on mobile (covers bottom 55%) to guarantee text legibility */}
+            <div className="absolute inset-x-0 bottom-0 h-[55%] md:h-[75%] bg-gradient-to-b from-transparent via-black/55 to-black/85 pointer-events-none" />
 
             {/*
               Bunny character:
-                - mobile: HUGE, centered, top-half of hero (~65% width)
-                - desktop: small, lower-left (~20% width)
+                - mobile: top-centered, ~60% wide capped at 240px → height ~245px. With top-[20px] bottom ~265px.
+                - desktop: absolute lower-left, ~20% width
             */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-[4%] w-[68%] max-w-[320px] sm:left-[3%] sm:translate-x-0 sm:top-auto sm:bottom-0 sm:w-[30%] sm:max-w-none md:left-[3%] md:w-[22%] lg:w-[20%] z-20 pointer-events-none">
+            <div className="absolute left-1/2 -translate-x-1/2 top-[20px] w-[60%] max-w-[240px] sm:left-[3%] sm:translate-x-0 sm:top-auto sm:bottom-0 sm:w-[30%] sm:max-w-none md:left-[3%] md:w-[22%] lg:w-[20%] z-20 pointer-events-none">
               <Image
                 src="/images/characters/ani-bunny.png"
                 alt="Ani the bunny"
@@ -59,11 +59,10 @@ export default function Hero() {
             </div>
 
             {/*
-              Text overlay positioning:
-                - mobile: bottom-anchored below the big bunny
-                - md+: bottom-anchored (justify-end pb-[8%]) matching desktop mockup
+              Text block — always bottom-anchored with flex justify-end.
+              Mobile min-h 720 + bunny bottom ~265 + text content ~260 + pb-8 = text starts ~428. Gap >= 160px above bunny.
             */}
-            <div className="absolute inset-0 flex flex-col items-center justify-end px-6 md:px-12 pb-7 md:pb-[8%] z-10 pointer-events-none">
+            <div className="absolute inset-0 flex flex-col items-center justify-end px-6 md:px-12 pb-8 md:pb-[8%] z-10 pointer-events-none">
               <div className="max-w-3xl lg:max-w-4xl text-center pointer-events-auto">
                 <h1
                   className="font-display font-extrabold text-white text-[22px] sm:text-[28px] md:text-[32px] lg:text-[40px] xl:text-[44px] 2xl:text-[48px]"

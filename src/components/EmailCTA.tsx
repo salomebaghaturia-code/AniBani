@@ -59,10 +59,8 @@ export default function EmailCTA() {
         priority={false}
         className="object-cover pointer-events-none select-none"
       />
-      {/* Semi-transparent coral tint — meadow mountains/sun remain clearly visible */}
-      <div className="absolute inset-0 bg-gradient-to-br from-coral/55 via-coral-light/45 to-coral/60 pointer-events-none" />
-      {/* Extra dark gradient at bottom for text legibility over the meadow */}
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-coral-dark/40 to-transparent pointer-events-none" />
+      {/* Light coral tint — mountains, sun, and grass stay clearly visible */}
+      <div className="absolute inset-0 bg-gradient-to-br from-coral/40 via-coral-light/30 to-coral/45 pointer-events-none" />
 
       <div className="container-page relative z-10">
         <Reveal>

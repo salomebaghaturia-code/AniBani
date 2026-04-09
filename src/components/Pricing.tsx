@@ -11,10 +11,20 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="relative bg-beige pt-16 md:pt-24 pb-40 md:pb-48 overflow-hidden">
-      {/* Scenic meadow decoration — bottom strip only, transitions into EmailCTA */}
+      {/*
+        Scenic meadow strip at bottom — fades smoothly from transparent (top)
+        to fully opaque (bottom) so it blends with the beige section above and
+        visually flows into the EmailCTA meadow below.
+      */}
       <div
         aria-hidden
-        className="absolute left-0 right-0 bottom-0 h-[160px] md:h-[200px] pointer-events-none select-none"
+        className="absolute left-0 right-0 bottom-0 h-[200px] md:h-[260px] pointer-events-none select-none"
+        style={{
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, black 100%)",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, black 100%)"
+        }}
       >
         <Image
           src="/images/backgrounds/meadow-scene.png"
