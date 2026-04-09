@@ -23,8 +23,12 @@ const notoGeorgian = localFont({
 });
 
 // Read at request time (server component) so we can flip these via env vars
-// without rebuilding the image. Empty string -> falsy -> not rendered.
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "";
+// without rebuilding the image. We hard-disable GA outside production so that
+// `next dev` sessions don't pollute the live analytics property.
+const GA_MEASUREMENT_ID =
+  process.env.NODE_ENV === "production"
+    ? process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "G-QDFPLBWBDJ"
+    : "";
 const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() || "";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://anibani.app";
