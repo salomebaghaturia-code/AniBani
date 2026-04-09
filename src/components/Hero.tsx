@@ -60,9 +60,9 @@ export default function Hero() {
                 - md+: bottom-anchored (justify-end pb-[8%]) to match the desktop mockup
             */}
             <div className="absolute inset-0 flex flex-col items-center justify-center md:justify-end px-6 md:px-12 pt-16 pb-36 sm:pb-32 md:pt-0 md:pb-[8%] z-10 pointer-events-none">
-              <div className="max-w-3xl text-center pointer-events-auto">
+              <div className="max-w-3xl lg:max-w-4xl text-center pointer-events-auto">
                 <h1
-                  className="font-display font-extrabold text-white text-[26px] sm:text-[28px] md:text-[32px] lg:text-[38px] xl:text-[44px]"
+                  className="font-display font-extrabold text-white text-[26px] sm:text-[28px] md:text-[32px] lg:text-[40px] xl:text-[44px] 2xl:text-[48px]"
                   style={{
                     lineHeight: 1.4,
                     textShadow: "0 2px 8px rgba(0,0,0,0.5)"
