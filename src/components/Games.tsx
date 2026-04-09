@@ -28,23 +28,27 @@ export default function Games() {
 
         {/*
           Uniform CSS grid:
-          - mobile: grid-cols-2, 5th card spans 2 cols (full width row)
-          - md+: grid-cols-6 with each card col-span-2 (3 per row). Cards 4 & 5 centered
-            via col-start-2 on card #4 → cards 4 (cols 2-3) + 5 (cols 4-5) sit centered.
+          - mobile: grid-cols-2. All 5 cards equal width. 5th card spans 2 cols but
+            is capped via max-w + mx-auto so its visible width matches the others.
+          - md+: grid-cols-6 with each card col-span-2 (3 per row). Row 2 cards centered
+            via col-start-2 on card #4 → cards 4 (cols 2-3) + 5 (cols 4-5).
         */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-6 max-w-5xl mx-auto items-stretch">
           {t.games.items.map((game, idx) => {
-            const mobileClass = idx === 4 ? "col-span-2" : "";
+            const mobileClass =
+              idx === 4
+                ? "col-span-2 mx-auto w-full max-w-[calc(50%-0.5rem)] md:max-w-none md:mx-0"
+                : "";
             const desktopClass =
               idx === 3 ? "md:col-start-2 md:col-span-2" : "md:col-span-2";
             return (
               <Reveal
                 key={game.id}
                 delay={idx * 80}
-                className={`${mobileClass} ${desktopClass}`}
+                className={`${mobileClass} ${desktopClass} h-full`}
               >
                 <div className="bg-white rounded-card p-5 md:p-6 border border-coral/15 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 h-full flex flex-col items-center text-center">
-                  <div className="w-24 h-24 md:w-28 md:h-28 mb-4 flex items-center justify-center bg-cream rounded-2xl">
+                  <div className="w-20 h-20 md:w-28 md:h-28 mb-4 flex items-center justify-center bg-cream rounded-2xl flex-shrink-0">
                     <Image
                       src={`/images/games/${game.id}.png`}
                       alt={game.name}
@@ -53,7 +57,7 @@ export default function Games() {
                       className="w-full h-full object-contain p-2"
                     />
                   </div>
-                  <h3 className="font-display font-bold text-ink text-base md:text-lg mb-1.5">
+                  <h3 className="font-display font-bold text-ink text-sm md:text-lg mb-1.5">
                     {game.name}
                   </h3>
                   <p className="text-xs md:text-sm text-body leading-snug">{game.desc}</p>

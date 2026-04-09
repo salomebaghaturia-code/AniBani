@@ -21,9 +21,9 @@ export default function Pricing() {
         className="absolute left-0 right-0 bottom-0 h-[200px] md:h-[260px] pointer-events-none select-none"
         style={{
           WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, black 100%)",
+            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.7) 50%, black 80%)",
           maskImage:
-            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, black 100%)"
+            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.7) 50%, black 80%)"
         }}
       >
         <Image

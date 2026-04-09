@@ -15,11 +15,11 @@ export default function Hero() {
         <div className="relative rounded-[28px] md:rounded-[40px] overflow-hidden shadow-soft bg-cream">
           {/*
             Sizing strategy (mobile overlap-proof):
-              - mobile (< 640):  min-height 720px — bunny in top ~260px, text+buttons in bottom ~280px, guaranteed no overlap
+              - mobile (< 640):  min-height 680px — bunny 200px tall at top, text+buttons bottom, >=140px gap
               - sm   (640-1023): min-height 520px
               - lg+  (1024+):    drop min-height, use 16:9 aspect for desktop framing
           */}
-          <div className="relative w-full min-h-[720px] sm:min-h-[520px] lg:min-h-0 lg:aspect-[16/9]">
+          <div className="relative w-full min-h-[680px] sm:min-h-[520px] lg:min-h-0 lg:aspect-[16/9]">
             {/* Background scene (clean) */}
             <Image
               src="/images/hero/background.png"
@@ -34,10 +34,10 @@ export default function Hero() {
 
             {/*
               Bunny character:
-                - mobile: top-centered, ~60% wide capped at 240px → height ~245px. With top-[20px] bottom ~265px.
+                - mobile: top-centered, ~52% wide capped at 200px → height ~205px. With top-[16px] bottom ~221px.
                 - desktop: absolute lower-left, ~20% width
             */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-[20px] w-[60%] max-w-[240px] sm:left-[3%] sm:translate-x-0 sm:top-auto sm:bottom-0 sm:w-[30%] sm:max-w-none md:left-[3%] md:w-[22%] lg:w-[20%] z-20 pointer-events-none">
+            <div className="absolute left-1/2 -translate-x-1/2 top-[16px] w-[52%] max-w-[200px] sm:left-[3%] sm:translate-x-0 sm:top-auto sm:bottom-0 sm:w-[30%] sm:max-w-none md:left-[3%] md:w-[22%] lg:w-[20%] z-20 pointer-events-none">
               <Image
                 src="/images/characters/ani-bunny.png"
                 alt="Ani the bunny"
@@ -60,7 +60,7 @@ export default function Hero() {
 
             {/*
               Text block — always bottom-anchored with flex justify-end.
-              Mobile min-h 720 + bunny bottom ~265 + text content ~260 + pb-8 = text starts ~428. Gap >= 160px above bunny.
+              Mobile min-h 680 + bunny bottom ~229 + text content ~241 + pb-8 = text starts ~407. Gap ~178px above bunny.
             */}
             <div className="absolute inset-0 flex flex-col items-center justify-end px-6 md:px-12 pb-8 md:pb-[8%] z-10 pointer-events-none">
               <div className="max-w-3xl lg:max-w-4xl text-center pointer-events-auto">

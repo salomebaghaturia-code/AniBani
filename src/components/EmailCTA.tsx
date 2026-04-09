@@ -49,8 +49,8 @@ export default function EmailCTA() {
   };
 
   return (
-    <section id="early-access" className="relative py-16 md:py-24 bg-coral overflow-hidden">
-      {/* Scenic meadow/adventure background */}
+    <section id="early-access" className="relative py-16 md:py-24 bg-ink overflow-hidden">
+      {/* Scenic meadow/adventure background — covers full section */}
       <Image
         src="/images/backgrounds/meadow-scene.png"
         alt=""
@@ -59,16 +59,24 @@ export default function EmailCTA() {
         priority={false}
         className="object-cover pointer-events-none select-none"
       />
-      {/* Light coral tint — mountains, sun, and grass stay clearly visible */}
-      <div className="absolute inset-0 bg-gradient-to-br from-coral/40 via-coral-light/30 to-coral/45 pointer-events-none" />
+      {/* Subtle warm tint — mountains, sun, grass clearly visible. Text legibility comes from text-shadow, not the overlay. */}
+      <div className="absolute inset-0 bg-gradient-to-br from-coral/25 via-coral-light/15 to-coral/30 pointer-events-none" />
 
       <div className="container-page relative z-10">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-display text-3xl md:text-4xl lg:text-[42px] font-extrabold text-white leading-tight">
+            <h2
+              className="font-display text-3xl md:text-4xl lg:text-[42px] font-extrabold text-white leading-tight"
+              style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6)" }}
+            >
               {t.emailCta.title}
             </h2>
-            <p className="mt-3 text-white/90 text-base md:text-lg">{t.emailCta.subtitle}</p>
+            <p
+              className="mt-3 text-white text-base md:text-lg"
+              style={{ textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}
+            >
+              {t.emailCta.subtitle}
+            </p>
 
             {submitted ? (
               <div className="mt-8 inline-flex items-center gap-2 bg-white/20 backdrop-blur px-6 py-3 rounded-full text-white font-semibold">
