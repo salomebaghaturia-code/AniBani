@@ -34,7 +34,7 @@ export default function ContactPage() {
         </a>
         {" · "}
         <a
-          href="https://www.facebook.com/anibaniapp"
+          href="https://www.instagram.com/anibaniapp?igsh=ZWd2NTJqN2V4YzNy"
           target="_blank"
           rel="noopener noreferrer"
         >
