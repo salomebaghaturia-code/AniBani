@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useModal } from "@/context/ModalContext";
 import { trackClick } from "@/lib/analytics";
@@ -51,19 +50,8 @@ export default function EmailCTA() {
   return (
     <section
       id="early-access"
-      className="relative py-16 md:py-24 bg-[#4a6741] overflow-hidden rounded-t-[40px] scroll-mt-20"
+      className="relative z-10 py-24 md:py-32 bg-transparent scroll-mt-20"
     >
-      {/* Vivid meadow background — NO tint overlay. Text readability from text-shadow only. */}
-      <Image
-        src="/images/backgrounds/meadow-scene.png"
-        alt=""
-        fill
-        aria-hidden
-        priority={false}
-        className="object-cover pointer-events-none select-none"
-        style={{ objectPosition: "center 40%" }}
-      />
-
       <div className="container-page relative z-10">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto">

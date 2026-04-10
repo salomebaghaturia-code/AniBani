@@ -7,7 +7,7 @@ export const translations = {
       games: "თამაშები",
       pricing: "ფასები",
       contact: "კონტაქტი",
-      download: "აპის გადმოწერა",
+      download: "გადმოწერა",
       languageToggleLabel: "EN"
     },
     hero: {
@@ -15,7 +15,7 @@ export const translations = {
       titleLines: ["აქციე ბავშვის ეკრანთან", "გატარებული დრო განვითარებად"],
       subtitle:
         "ანი ბანი ეხმარება ბავშვებს ისწავლონ, იფიქრონ და განვითარდნენ თამაშით, უსაფრთხო და მათზე მორგებულ სამყაროში",
-      ctaPrimary: "აპის გადმოწერა",
+      ctaPrimary: "გადმოწერა",
       ctaSecondary: "ადრეული წვდომა"
     },
     about: {
@@ -68,7 +68,7 @@ export const translations = {
     },
     pricing: {
       title: "ფასი",
-      cta: "აპის გადმოწერა",
+      cta: "გადმოწერა",
       plans: [
         { id: "free", name: "უფასო", price: "ლიმიტირებული წვდომა", priceUnit: "" },
         { id: "monthly", name: "თვეში", price: "4.99", priceUnit: "ლარი" },
@@ -118,7 +118,7 @@ export const translations = {
       games: "Games",
       pricing: "Pricing",
       contact: "Contact",
-      download: "Download App",
+      download: "Download",
       languageToggleLabel: "GE"
     },
     hero: {
@@ -126,7 +126,7 @@ export const translations = {
       titleLines: ["Turn Your Child's Screen Time", "Into Development"],
       subtitle:
         "Ani Bani helps children learn, think, and grow — through play, in a safe and structured world.",
-      ctaPrimary: "Download App",
+      ctaPrimary: "Download",
       ctaSecondary: "Early Access"
     },
     about: {
@@ -179,7 +179,7 @@ export const translations = {
     },
     pricing: {
       title: "Pricing",
-      cta: "Download App",
+      cta: "Download",
       plans: [
         { id: "free", name: "Free", price: "Limited access", priceUnit: "" },
         { id: "monthly", name: "Monthly", price: "4.99", priceUnit: "GEL" },

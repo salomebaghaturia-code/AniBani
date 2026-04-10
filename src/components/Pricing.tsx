@@ -9,10 +9,10 @@ export default function Pricing() {
   const { open } = useModal();
 
   return (
-    <section id="pricing" className="bg-beige py-16 md:py-24">
+    <section id="pricing" className="relative z-10 bg-transparent py-16 md:py-24">
       <div className="container-page">
         <Reveal>
-          <h2 className="section-title mb-10 md:mb-14">{t.pricing.title}</h2>
+          <h2 className="section-title mb-10 md:mb-14 text-white" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6)" }}>{t.pricing.title}</h2>
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">

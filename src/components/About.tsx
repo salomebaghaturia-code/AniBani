@@ -8,7 +8,15 @@ export default function About() {
   const { t } = useLanguage();
 
   return (
-    <section id="about" className="relative bg-cream py-16 md:py-24 overflow-hidden">
+    <section
+      id="about"
+      className="relative bg-cream py-16 md:py-24 overflow-hidden"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+      }}
+    >
       <div className="relative container-page">
         <Reveal>
           <h2 className="section-title mb-8 md:mb-10">{t.about.title}</h2>
@@ -26,7 +34,7 @@ export default function About() {
           {t.about.skills.map((skill, idx) => (
             <Reveal key={skill.id} delay={idx * 60}>
               <div className="bg-white rounded-card p-4 md:p-5 border border-coral/15 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 h-full flex flex-col items-center text-center">
-                <div className="w-16 h-16 md:w-20 md:h-20 mb-3 flex items-center justify-center">
+                <div className="w-20 h-20 md:w-24 md:h-24 mb-3 flex items-center justify-center">
                   <Image
                     src={`/images/skills/${skill.id}.png`}
                     alt={skill.label}
