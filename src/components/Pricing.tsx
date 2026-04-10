@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useModal } from "@/context/ModalContext";
 import Reveal from "./Reveal";
@@ -10,31 +9,8 @@ export default function Pricing() {
   const { open } = useModal();
 
   return (
-    <section id="pricing" className="relative bg-beige pt-16 md:pt-24 pb-40 md:pb-48 overflow-hidden">
-      {/*
-        Scenic meadow strip at bottom — fades smoothly from transparent (top)
-        to fully opaque (bottom) so it blends with the beige section above and
-        visually flows into the EmailCTA meadow below.
-      */}
-      <div
-        aria-hidden
-        className="absolute left-0 right-0 bottom-0 h-[200px] md:h-[260px] pointer-events-none select-none"
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.7) 50%, black 80%)",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.7) 50%, black 80%)"
-        }}
-      >
-        <Image
-          src="/images/backgrounds/meadow-scene.png"
-          alt=""
-          fill
-          className="object-cover object-top"
-        />
-      </div>
-
-      <div className="container-page relative z-10">
+    <section id="pricing" className="bg-beige py-16 md:py-24">
+      <div className="container-page">
         <Reveal>
           <h2 className="section-title mb-10 md:mb-14">{t.pricing.title}</h2>
         </Reveal>

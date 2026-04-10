@@ -49,8 +49,11 @@ export default function EmailCTA() {
   };
 
   return (
-    <section id="early-access" className="relative py-16 md:py-24 bg-ink overflow-hidden">
-      {/* Scenic meadow/adventure background — covers full section */}
+    <section
+      id="early-access"
+      className="relative py-16 md:py-24 bg-[#4a6741] overflow-hidden rounded-t-[40px] scroll-mt-20"
+    >
+      {/* Vivid meadow background — NO tint overlay. Text readability from text-shadow only. */}
       <Image
         src="/images/backgrounds/meadow-scene.png"
         alt=""
@@ -58,9 +61,8 @@ export default function EmailCTA() {
         aria-hidden
         priority={false}
         className="object-cover pointer-events-none select-none"
+        style={{ objectPosition: "center 40%" }}
       />
-      {/* Subtle warm tint — mountains, sun, grass clearly visible. Text legibility comes from text-shadow, not the overlay. */}
-      <div className="absolute inset-0 bg-gradient-to-br from-coral/25 via-coral-light/15 to-coral/30 pointer-events-none" />
 
       <div className="container-page relative z-10">
         <Reveal>

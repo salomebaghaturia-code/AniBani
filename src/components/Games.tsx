@@ -47,14 +47,14 @@ export default function Games() {
                 delay={idx * 80}
                 className={`${mobileClass} ${desktopClass} h-full`}
               >
-                <div className="bg-white rounded-card p-5 md:p-6 border border-coral/15 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 h-full flex flex-col items-center text-center">
-                  <div className="w-20 h-20 md:w-28 md:h-28 mb-4 flex items-center justify-center bg-cream rounded-2xl flex-shrink-0">
+                <div className="bg-cream rounded-card p-5 md:p-6 border border-coral/10 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 h-full flex flex-col items-center text-center">
+                  <div className="w-28 h-28 md:w-32 md:h-32 mb-4 flex items-center justify-center flex-shrink-0">
                     <Image
                       src={`/images/games/${game.id}.png`}
                       alt={game.name}
-                      width={112}
-                      height={112}
-                      className="w-full h-full object-contain p-2"
+                      width={128}
+                      height={128}
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   <h3 className="font-display font-bold text-ink text-sm md:text-lg mb-1.5">
