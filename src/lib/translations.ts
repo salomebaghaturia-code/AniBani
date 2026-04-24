@@ -15,16 +15,21 @@ export const translations = {
       titleLines: ["აქციე ბავშვის ეკრანთან", "გატარებული დრო განვითარებად"],
       subtitle:
         "ანი ბანი ეხმარება ბავშვებს ისწავლონ, იფიქრონ და განვითარდნენ თამაშით, უსაფრთხო და მათზე მორგებულ სამყაროში",
+      subtitleLines: [
+        "ანი ბანი ეხმარება ბავშვებს ისწავლონ, იფიქრონ და განვითარდნენ თამაშით,",
+        "უსაფრთხო და მათზე მორგებულ სამყაროში"
+      ],
       ctaPrimary: "გადმოწერა",
       ctaSecondary: "ადრეული წვდომა"
     },
     about: {
       title: "ანი ბანის შესახებ",
       paragraphs: [
-        "ბავშვები ადრეული ასაკიდან იწყებენ ეკრანთან კონტაქტს, ყოველდღიურად დიდ დროს ატარებენ პასიურ კონტენტთან, რომელიც არ ემსახურება მათ განვითარებას. ხშირ შემთხვევაში მსგავსი კონტენტი ბავშვებში იწვევს გადაღლილობას, გაღიზიანებას და ტვინის ზედმეტ სტიმულაციას.",
-        "ანი ბანი არის ინტერაქციული თამაში, რომელშიც მთავარი გმირი — ბაჭია ანი, ბავშვებს მიუძღვება სასწავლო თავგადასავალში და ხელს უწყობს მათ აღმოაჩინონ სამყარო და გააძლიერონ ასაკის შესაბამისი უნარები.",
-        "შემეცნებითი განვითარების პრინციპებზე დაყრდნობით, ანი ბანი ეხმარება ბავშვებს თამაშით გამოიმუშაონ ისეთი კოგნიტური, ენობრივი და მოტორული უნარები, როგორიცაა:"
+        "ბავშვები ადრეული ასაკიდანვე იწყებენ ეკრანთან კონტაქტს და ყოველდღიურად მნიშვნელოვან დროს ატარებენ ციფრულ აუდიო-ვიდეო გარემოში, სადაც ხშირ შემთხვევაში პასიური მაყურებლების როლში არიან. ეს გამოცდილება იშვიათად უწყობს ხელს განვითარებას და შესაძლოა იწვევდეს გადაღლილობასა და გაღიზიანებას.",
+        "ანი ბანი არის ინტერაქციული საგანმანათლებლო თამაში, რომელშიც მთავარი გმირი - ბაჭია ანი - ბავშვებს მიუძღვება სასწავლო თავგადასავალში და ეხმარება სამყაროს აღმოჩენასა და ასაკის შესაბამისი უნარების განვითარებაში.",
+        "შემეცნებითი განვითარების პრინციპებზე დაყრდნობით, ანი ბანი თამაშის პროცესში ხელს უწყობს კოგნიტურ, ენობრივ და მოტორულ უნარების გამომუშავებას."
       ],
+      skillsHeading: "უნარები, რომლებიც თამაშით ვითარდება",
       skills: [
         { id: "curiosity", label: "ცნობისმოყვარეობა" },
         { id: "focus", label: "ყურადღება და კონცენტრაცია" },
@@ -126,16 +131,21 @@ export const translations = {
       titleLines: ["Turn Your Child's Screen Time", "Into Development"],
       subtitle:
         "Ani Bani helps children learn, think, and grow — through play, in a safe and structured world.",
+      subtitleLines: [
+        "Ani Bani helps children learn, think, and grow — through play,",
+        "in a safe and structured world."
+      ],
       ctaPrimary: "Download",
       ctaSecondary: "Early Access"
     },
     about: {
       title: "About Ani Bani",
       paragraphs: [
-        "From an early age, children are exposed to passive content that does not support their development — often leading to overstimulation, irritation, and emotional imbalance.",
-        "Ani Bani is an interactive learning game where the main character, Ani the bunny, guides children through a playful learning adventure — helping them explore the world and develop age-appropriate skills.",
-        "Built on child development principles, Ani Bani supports the development of:"
+        "From an early age, children start engaging with screens and spend a significant part of the day in digital audio-visual environments — often as passive viewers. This kind of experience rarely supports development and can lead to fatigue and irritation.",
+        "Ani Bani is an interactive educational game in which the main character — Ani the bunny — guides children through a learning adventure, helping them discover the world and build age-appropriate skills.",
+        "Grounded in cognitive development principles, Ani Bani fosters cognitive, language, and motor skills through play."
       ],
+      skillsHeading: "Skills developed through play",
       skills: [
         { id: "curiosity", label: "Curiosity" },
         { id: "focus", label: "Focus & Attention" },

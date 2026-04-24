@@ -16,15 +16,16 @@ export default function Home() {
       <About />
       <Games />
       <ParentPanel />
-      {/* Meadow scene spans both Pricing and EmailCTA as one continuous background */}
+      {/* Pricing + EmailCTA share one continuous background scene */}
       <div className="relative overflow-hidden min-h-[600px] md:min-h-[700px] bg-beige">
         <Image
-          src="/images/backgrounds/meadow-scene.png"
+          src="/images/pricing-bg.png"
           alt=""
           fill
           aria-hidden
+          sizes="100vw"
           className="object-cover pointer-events-none select-none"
-          style={{ objectPosition: "center 60%" }}
+          style={{ objectPosition: "center center" }}
         />
         <Pricing />
         <EmailCTA />

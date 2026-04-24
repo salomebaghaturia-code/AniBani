@@ -56,8 +56,11 @@ export default function EmailCTA() {
         <Reveal>
           <div className="text-center max-w-2xl mx-auto">
             <h2
-              className="font-display text-3xl md:text-4xl lg:text-[42px] font-extrabold text-white leading-tight"
-              style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6)" }}
+              className="font-display text-3xl md:text-4xl lg:text-[42px] font-extrabold text-white"
+              style={{
+                lineHeight: 1.45,
+                textShadow: "0 2px 10px rgba(0,0,0,0.6)"
+              }}
             >
               {t.emailCta.title}
             </h2>

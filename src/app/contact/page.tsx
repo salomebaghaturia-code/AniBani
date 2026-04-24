@@ -15,7 +15,7 @@ export default function ContactPage() {
       </p>
       <h2>{lang === "ka" ? "ელფოსტა" : "Email"}</h2>
       <p>
-        <a href="mailto:salomebaghaturia@anibani.app">salomebaghaturia@anibani.app</a>
+        <a href="mailto:info@anibani.app">info@anibani.app</a>
       </p>
       <h2>{lang === "ka" ? "ტელეფონი" : "Phone"}</h2>
       <p>

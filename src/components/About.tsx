@@ -23,27 +23,33 @@ export default function About() {
         </Reveal>
 
         <Reveal delay={80}>
-          <div className="max-w-3xl mx-auto space-y-4 text-body text-center md:text-left text-base md:text-[17px] leading-relaxed">
+          <div className="space-y-5 text-body text-center md:text-left text-xl md:text-2xl leading-relaxed">
             {t.about.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
         </Reveal>
 
-        <div className="mt-10 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <Reveal delay={120}>
+          <h2 className="section-title mt-14 md:mt-20 mb-8 md:mb-10">
+            {t.about.skillsHeading}
+          </h2>
+        </Reveal>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {t.about.skills.map((skill, idx) => (
             <Reveal key={skill.id} delay={idx * 60}>
               <div className="bg-white rounded-card p-4 md:p-5 border border-coral/15 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 h-full flex flex-col items-center text-center">
-                <div className="w-20 h-20 md:w-24 md:h-24 mb-3 flex items-center justify-center">
+                <div className="w-24 h-24 md:w-32 md:h-32 mb-4 flex items-center justify-center">
                   <Image
                     src={`/images/skills/${skill.id}.png`}
                     alt={skill.label}
-                    width={80}
-                    height={80}
+                    width={128}
+                    height={128}
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <p className="text-xs md:text-sm font-semibold text-ink leading-tight">
+                <p className="text-sm md:text-base font-semibold text-ink leading-tight">
                   {skill.label}
                 </p>
               </div>

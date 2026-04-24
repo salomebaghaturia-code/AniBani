@@ -27,7 +27,7 @@ export default function PrivacyPage() {
           </p>
           <h2>კონტაქტი</h2>
           <p>
-            თუ გაქვთ შეკითხვა, მოგვწერეთ: <a href="mailto:salomebaghaturia@anibani.app">salomebaghaturia@anibani.app</a>
+            თუ გაქვთ შეკითხვა, მოგვწერეთ: <a href="mailto:info@anibani.app">info@anibani.app</a>
           </p>
         </>
       ) : (
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
           <h2>Contact</h2>
           <p>
             If you have questions, write to us at{" "}
-            <a href="mailto:salomebaghaturia@anibani.app">salomebaghaturia@anibani.app</a>
+            <a href="mailto:info@anibani.app">info@anibani.app</a>
           </p>
         </>
       )}

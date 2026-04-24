@@ -37,7 +37,7 @@ export default function Navbar() {
         scrolled ? "bg-white/95 backdrop-blur shadow-soft" : "bg-white"
       }`}
     >
-      <nav className="container-page flex items-center justify-between h-16 md:h-20 gap-3">
+      <nav className="flex items-center justify-between h-16 md:h-20 gap-3 pl-6 md:pl-10 lg:pl-16 xl:pl-24 2xl:pl-32 pr-8 lg:pr-16 xl:pr-24 2xl:pr-32 w-full">
         <a href="#top" className="flex items-center shrink-0" aria-label="Ani Bani">
           <Image
             src={lang === "ka" ? "/images/logo/logo-ka.png" : "/images/logo/logo-en.png"}
@@ -55,7 +55,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 onClick={() => handleNavClick(link.id)}
-                className="hover:text-coral transition-colors text-[15px]"
+                className="hover:text-coral transition-colors text-lg lg:text-xl"
               >
                 {link.label}
               </a>
@@ -63,18 +63,18 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2 md:gap-3 shrink-0">
+        <div className="flex items-center gap-4 md:gap-5 shrink-0">
           {/* EN/GE toggle — always visible on every viewport */}
           <button
             onClick={toggleLang}
             aria-label="Toggle language"
-            className="inline-flex items-center justify-center w-10 h-10 md:w-11 md:h-10 rounded-full border-2 border-coral text-coral hover:bg-coral hover:text-white font-bold text-sm transition-colors"
+            className="inline-flex items-center justify-center w-11 h-11 md:w-12 md:h-11 rounded-full border-2 border-coral text-coral hover:bg-coral hover:text-white font-bold text-base transition-colors"
           >
             {t.nav.languageToggleLabel}
           </button>
           <button
             onClick={() => open("navbar_download")}
-            className="hidden md:inline-flex btn-primary text-sm py-2.5 px-5"
+            className="hidden md:inline-flex btn-primary text-lg py-3 px-7"
           >
             {t.nav.download}
           </button>

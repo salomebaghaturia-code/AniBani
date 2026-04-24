@@ -22,10 +22,10 @@ export default function Footer() {
               height={124}
               className="h-12 w-auto mb-5"
             />
-            <h4 className="font-display font-extrabold text-white text-xl md:text-2xl mb-1.5 leading-tight">
+            <h4 className="font-display font-extrabold text-white text-2xl md:text-3xl mb-2 leading-tight">
               {t.footer.tagline}
             </h4>
-            <p className="text-white/60 text-xs uppercase tracking-wider font-semibold mb-4">
+            <p className="text-white/60 text-sm uppercase tracking-wider font-semibold mb-4">
               {t.footer.available}
             </p>
             <button
@@ -45,8 +45,8 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-display font-bold text-lg mb-4">{t.nav.about}</h4>
-            <ul className="space-y-2 text-white/70 text-sm">
+            <h4 className="font-display font-bold text-xl md:text-2xl mb-5">{t.nav.about}</h4>
+            <ul className="space-y-3 text-white/70 text-base md:text-lg">
               <li>
                 <Link href="/about" className="hover:text-coral transition-colors">
                   {t.footer.links.about}
@@ -72,11 +72,11 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display font-bold text-lg mb-4">{t.footer.links.contact}</h4>
-            <ul className="space-y-2 text-white/70 text-sm">
+            <h4 className="font-display font-bold text-xl md:text-2xl mb-5">{t.footer.links.contact}</h4>
+            <ul className="space-y-3 text-white/70 text-base md:text-lg">
               <li>
-                <a href="mailto:salomebaghaturia@anibani.app" className="hover:text-coral transition-colors break-all">
-                  salomebaghaturia@anibani.app
+                <a href="mailto:info@anibani.app" className="hover:text-coral transition-colors break-all">
+                  info@anibani.app
                 </a>
               </li>
               <li>
@@ -116,7 +116,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 text-center text-white/50 text-sm">
+        <div className="mt-12 pt-6 border-t border-white/10 text-center text-white/60 text-base">
           {t.footer.copyright}
         </div>
       </div>
