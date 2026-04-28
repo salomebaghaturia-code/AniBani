@@ -34,20 +34,24 @@ export default function Hero() {
 
         {/* Mobile text block — bottom-right, not covering rabbit */}
         <div className="md:hidden absolute inset-0 flex flex-col items-end justify-end px-4 pb-8 z-10 pointer-events-none">
-          <div className="text-right pointer-events-auto max-w-full">
+          <div className="text-right pointer-events-auto max-w-4xl lg:max-w-5xl">
             <h1
-              className="font-display font-extrabold text-white text-[22px] sm:text-[28px]"
+              className="font-display font-extrabold text-white text-[22px] sm:text-[28px] md:text-[32px] lg:text-[40px] xl:text-[44px] 2xl:text-[48px]"
               style={{
-                lineHeight: 1.35,
+                fontSize: "clamp(20px, 3vw, 56px)",
+                lineHeight: 1.25,
                 textShadow: "0 2px 8px rgba(0,0,0,0.6)"
               }}
             >
-              <span className="block whitespace-nowrap">{t.hero.titleLines[0]}</span>
-              <span className="block whitespace-nowrap">{t.hero.titleLines[1]}</span>
+              <span className="block">{t.hero.titleLines[0]}</span>
+              <span className="block">{t.hero.titleLines[1]}</span>
             </h1>
             <p
               className="mt-3 text-white/95 font-medium leading-relaxed ml-auto text-[13px] sm:text-base"
-              style={{ textShadow: "0 2px 6px rgba(0,0,0,0.6)" }}
+              style={{
+                fontSize: "clamp(13px, 1.2vw, 20px)",
+                textShadow: "0 2px 6px rgba(0,0,0,0.6)"
+              }}
             >
               {t.hero.subtitleLines[0]}
               <br />
@@ -72,12 +76,13 @@ export default function Hero() {
         </div>
 
         {/* Desktop text block — bottom-right, live-site font sizes */}
-        <div className="hidden md:flex absolute inset-0 z-10 pointer-events-none flex-col items-end justify-end pr-8 lg:pr-16 xl:pr-24 2xl:pr-32 pb-[2.5%] lg:pb-[3%]">
-          <div className="text-right pointer-events-auto">
+        <div className="hidden md:flex absolute inset-0 z-10 pointer-events-none flex-col items-end justify-end pr-8 lg:pr-16 xl:pr-24 pb-[2.5%] lg:pb-[3%]">
+          <div className="text-right pointer-events-auto max-w-4xl lg:max-w-5xl">
             <h1
-              className="font-display font-extrabold text-white text-[40px] md:text-[40px] lg:text-[52px] xl:text-[60px] 2xl:text-[68px]"
+              className="font-display font-extrabold text-white text-[22px] sm:text-[28px] md:text-[32px] lg:text-[40px] xl:text-[44px] 2xl:text-[48px]"
               style={{
-                lineHeight: 1.3,
+                fontSize: "clamp(20px, 3vw, 56px)",
+                lineHeight: 1.25,
                 textShadow: "0 2px 8px rgba(0,0,0,0.6)"
               }}
             >
@@ -86,7 +91,10 @@ export default function Hero() {
             </h1>
             <p
               className="mt-4 md:mt-5 text-white/95 font-medium leading-relaxed text-sm md:text-base lg:text-lg ml-auto"
-              style={{ textShadow: "0 2px 6px rgba(0,0,0,0.6)" }}
+              style={{
+                fontSize: "clamp(13px, 1.2vw, 20px)",
+                textShadow: "0 2px 6px rgba(0,0,0,0.6)"
+              }}
             >
               <span className="block whitespace-nowrap">{t.hero.subtitleLines[0]}</span>
               <span className="block whitespace-nowrap">{t.hero.subtitleLines[1]}</span>

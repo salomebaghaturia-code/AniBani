@@ -19,18 +19,6 @@ export default function Games() {
         className="object-cover pointer-events-none select-none"
       />
 
-      {/* Goat character — bottom-left, desktop only */}
-      <div className="hidden md:block absolute left-0 bottom-0 w-[160px] lg:w-[220px] xl:w-[260px] pointer-events-none select-none">
-        <Image
-          src="/images/characters/goat.png"
-          alt=""
-          width={440}
-          height={440}
-          aria-hidden
-          className="w-full h-auto drop-shadow-xl"
-        />
-      </div>
-
       <div className="relative container-page">
         <Reveal>
           <h2 className="section-title mb-10 md:mb-14">{t.games.title}</h2>

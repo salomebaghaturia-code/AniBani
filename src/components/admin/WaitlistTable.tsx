@@ -45,8 +45,8 @@ export default function WaitlistTable() {
     load();
   }, [load]);
 
-  const downloadCsv = async () => {
-    const res = await adminFetch("/api/admin/export/csv");
+  const downloadXlsx = async () => {
+    const res = await adminFetch("/api/admin/export/xlsx");
     if (!res.ok) {
       alert("Export failed");
       return;
@@ -55,7 +55,7 @@ export default function WaitlistTable() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `anibani-waitlist-${todayISO()}.csv`;
+    a.download = `anibani-waitlist-${todayISO()}.xlsx`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -92,10 +92,10 @@ export default function WaitlistTable() {
             />
           </div>
           <button
-            onClick={downloadCsv}
+            onClick={downloadXlsx}
             className="px-4 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-sm font-semibold"
           >
-            Export CSV
+            Export Excel
           </button>
         </div>
       </div>
