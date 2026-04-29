@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import localFont from "next/font/local";
+import { headers } from "next/headers";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ModalProvider } from "@/context/ModalContext";
 import WaitlistModal from "@/components/WaitlistModal";
 import SessionTracker from "@/components/SessionTracker";
+import type { Lang } from "@/lib/translations";
 
 const notoGeorgian = localFont({
   src: [
@@ -22,9 +24,6 @@ const notoGeorgian = localFont({
   display: "swap"
 });
 
-// Read at request time (server component) so we can flip these via env vars
-// without rebuilding the image. We hard-disable GA outside production so that
-// `next dev` sessions don't pollute the live analytics property.
 const GA_MEASUREMENT_ID =
   process.env.NODE_ENV === "production"
     ? process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "G-QDFPLBWBDJ"
@@ -44,17 +43,18 @@ export const metadata: Metadata = {
     description: "აქციე ბავშვის ეკრანთან გატარებული დრო განვითარებად",
     images: ["/images/hero/hero-full.png"]
   },
-  // Renders <meta name="google-site-verification" content="..."> only when set
   verification: GOOGLE_SITE_VERIFICATION
     ? { google: GOOGLE_SITE_VERIFICATION }
     : undefined
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const headerLocale = headers().get("x-locale");
+  const lang: Lang = headerLocale === "en" ? "en" : "ka";
+
   return (
-    <html lang="ka" className={`${notoGeorgian.variable}`}>
+    <html lang={lang} className={`${notoGeorgian.variable}`}>
       <body className="bg-cream">
-        {/* Google Analytics 4 — only loaded when NEXT_PUBLIC_GA_MEASUREMENT_ID is set */}
         {GA_MEASUREMENT_ID && (
           <>
             <Script
@@ -72,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </>
         )}
 
-        <LanguageProvider>
+        <LanguageProvider initialLang={lang}>
           <ModalProvider>
             <SessionTracker />
             {children}

@@ -48,22 +48,22 @@ export default function Footer() {
             <h4 className="font-display font-bold text-xl md:text-2xl mb-5">{t.nav.about}</h4>
             <ul className="space-y-3 text-white/70 text-base md:text-lg">
               <li>
-                <Link href="/about" className="hover:text-coral transition-colors">
+                <Link href={`/${lang}/about`} className="hover:text-coral transition-colors">
                   {t.footer.links.about}
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-coral transition-colors">
+                <Link href={`/${lang}/privacy`} className="hover:text-coral transition-colors">
                   {t.footer.links.privacy}
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-coral transition-colors">
+                <Link href={`/${lang}/terms`} className="hover:text-coral transition-colors">
                   {t.footer.links.terms}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-coral transition-colors">
+                <Link href={`/${lang}/contact`} className="hover:text-coral transition-colors">
                   {t.footer.links.contact}
                 </Link>
               </li>

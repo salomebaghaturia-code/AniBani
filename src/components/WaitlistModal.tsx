@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useModal } from "@/context/ModalContext";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -118,10 +117,7 @@ export default function WaitlistModal() {
         </button>
 
         <div className="overflow-y-auto flex-1">
-          <div className="bg-gradient-to-br from-coral to-coral-light px-8 pt-8 pb-6 sm:pt-10 sm:pb-8 text-white text-center">
-            <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/20 backdrop-blur flex items-center justify-center mb-3 sm:mb-4">
-              <Image src="/images/logo/logo-ka.png" alt="Ani Bani" width={64} height={64} className="w-12 h-12 sm:w-16 sm:h-16" />
-            </div>
+          <div className="bg-gradient-to-br from-coral to-coral-light px-8 pt-10 pb-6 sm:pt-12 sm:pb-8 text-white text-center">
             <h2 className="text-xl sm:text-2xl font-bold mb-1.5 sm:mb-2">{t.modal.title}</h2>
             <p className="text-white/90 text-sm leading-relaxed">{t.modal.subtitle}</p>
           </div>

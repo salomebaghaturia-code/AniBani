@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Lang, translations, Translations } from "@/lib/translations";
 
 type LanguageContextType = {
@@ -12,27 +13,45 @@ type LanguageContextType = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("ka");
+function swapLangInPath(pathname: string, target: Lang): string {
+  const parts = pathname.split("/").filter(Boolean);
+  if (parts.length === 0) return `/${target}`;
+  if (parts[0] === "ka" || parts[0] === "en") {
+    parts[0] = target;
+  } else {
+    parts.unshift(target);
+  }
+  return "/" + parts.join("/");
+}
 
+export function LanguageProvider({
+  children,
+  initialLang = "ka"
+}: {
+  children: ReactNode;
+  initialLang?: Lang;
+}) {
+  const [lang, setLangState] = useState<Lang>(initialLang);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Keep state in sync if the URL-driven prop changes (e.g., language toggle navigation)
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? (localStorage.getItem("anibani-lang") as Lang | null) : null;
-    if (stored === "ka" || stored === "en") {
-      setLangState(stored);
-    }
-  }, []);
+    setLangState(initialLang);
+  }, [initialLang]);
 
   const setLang = (l: Lang) => {
     setLangState(l);
     if (typeof window !== "undefined") {
       localStorage.setItem("anibani-lang", l);
-      document.documentElement.lang = l;
+    }
+    if (pathname) {
+      router.push(swapLangInPath(pathname, l));
     }
   };
 
   const toggleLang = () => setLang(lang === "ka" ? "en" : "ka");
 
-  // Always pull strongly-typed Georgian shape (English mirrors it)
   const t = translations[lang] as unknown as Translations;
 
   return (

@@ -8,6 +8,10 @@ import Pricing from "@/components/Pricing";
 import EmailCTA from "@/components/EmailCTA";
 import Footer from "@/components/Footer";
 
+export function generateStaticParams() {
+  return [{ lang: "ka" }, { lang: "en" }];
+}
+
 export default function Home() {
   return (
     <main>
