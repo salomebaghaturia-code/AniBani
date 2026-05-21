@@ -5,15 +5,14 @@ import { useModal } from "@/context/ModalContext";
 import { useLanguage } from "@/context/LanguageContext";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ANDROID_URL = "https://transfer.it/t/WBnuB2g1DL7L";
 
 export default function WaitlistModal() {
   const { isOpen, close, source, prefillEmail } = useModal();
   const { t, lang } = useLanguage();
 
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [childAge, setChildAge] = useState("");
-  const [recommendation, setRecommendation] = useState("");
+  const [selectedPlatform, setSelectedPlatform] = useState<"android" | "ios" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -28,16 +27,14 @@ export default function WaitlistModal() {
   // Reset form when modal closes
   useEffect(() => {
     if (!isOpen) {
-      const t = setTimeout(() => {
+      const timer = setTimeout(() => {
         setEmail("");
-        setName("");
-        setChildAge("");
-        setRecommendation("");
+        setSelectedPlatform(null);
         setError(null);
         setSuccess(false);
         setSubmitting(false);
       }, 200);
-      return () => clearTimeout(t);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
@@ -50,6 +47,15 @@ export default function WaitlistModal() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, close]);
+
+  const handleAndroidClick = () => {
+    setSelectedPlatform("android");
+    window.open(ANDROID_URL, "_blank", "noopener,noreferrer");
+  };
+
+  const handleIosClick = () => {
+    setSelectedPlatform("ios");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,10 +77,10 @@ export default function WaitlistModal() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email.trim(),
-          name: name.trim(),
-          childAge,
-          recommendation: recommendation.trim(),
-          sourceButton: source,
+          name: "",
+          childAge: "",
+          recommendation: "",
+          sourceButton: source ? `${source}_ios_testflight` : "ios_testflight",
           language: lang
         })
       });
@@ -92,6 +98,9 @@ export default function WaitlistModal() {
   };
 
   if (!isOpen) return null;
+
+  const platformButtonClasses =
+    "flex-1 px-8 py-3.5 rounded-full font-bold transition-colors bg-coral hover:bg-coral-dark text-white";
 
   return (
     <div
@@ -138,71 +147,58 @@ export default function WaitlistModal() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="px-6 sm:px-8 py-5 sm:py-6 space-y-3 sm:space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-ink mb-1.5">
-                  {t.modal.email} <span className="text-coral">*</span>
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t.modal.emailPlaceholder}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-coral focus:ring-2 focus:ring-coral/20 outline-none transition-all text-ink"
-                  required
-                />
-              </div>
+            <div className="px-6 sm:px-8 py-5 sm:py-6">
+              <p className="text-sm font-semibold text-ink mb-3">{t.modal.mobileSystemLabel}</p>
 
-              <div>
-                <label className="block text-sm font-semibold text-ink mb-1.5">{t.modal.name}</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={t.modal.namePlaceholder}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-coral focus:ring-2 focus:ring-coral/20 outline-none transition-all text-ink"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-ink mb-1.5">{t.modal.childAge}</label>
-                <select
-                  value={childAge}
-                  onChange={(e) => setChildAge(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-coral focus:ring-2 focus:ring-coral/20 outline-none transition-all text-ink bg-white"
+              <div className="flex gap-3 sm:gap-4">
+                <button
+                  type="button"
+                  onClick={handleAndroidClick}
+                  className={platformButtonClasses}
                 >
-                  <option value="">{t.modal.childAgePlaceholder}</option>
-                  {["2", "3", "4", "5", "6", "7", "8+"].map((age) => (
-                    <option key={age} value={age}>
-                      {age}
-                    </option>
-                  ))}
-                </select>
+                  {t.modal.androidButton}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleIosClick}
+                  className={platformButtonClasses}
+                >
+                  {t.modal.iosButton}
+                </button>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-ink mb-1.5">{t.modal.recommendation}</label>
-                <textarea
-                  value={recommendation}
-                  onChange={(e) => setRecommendation(e.target.value)}
-                  placeholder={t.modal.recommendationPlaceholder}
-                  rows={3}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-coral focus:ring-2 focus:ring-coral/20 outline-none transition-all text-ink resize-none"
-                />
-              </div>
+              {selectedPlatform === "ios" && (
+                <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-ink mb-1.5">
+                      {t.modal.email} <span className="text-coral">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={t.modal.emailPlaceholder}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-coral focus:ring-2 focus:ring-coral/20 outline-none transition-all text-ink"
+                      required
+                    />
+                  </div>
 
-              {error && (
-                <div className="text-coral text-sm bg-coral/10 px-4 py-2 rounded-lg">{error}</div>
+                  <p className="text-sm text-body leading-relaxed">{t.modal.iosBodyText}</p>
+
+                  {error && (
+                    <div className="text-coral text-sm bg-coral/10 px-4 py-2 rounded-lg">{error}</div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full py-3.5 bg-coral hover:bg-coral-dark disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-full font-bold transition-colors text-base"
+                  >
+                    {submitting ? t.modal.submitting : t.modal.submit}
+                  </button>
+                </form>
               )}
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full py-3.5 bg-coral hover:bg-coral-dark disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-full font-bold transition-colors text-base"
-              >
-                {submitting ? t.modal.submitting : t.modal.submit}
-              </button>
-            </form>
+            </div>
           )}
         </div>
       </div>
