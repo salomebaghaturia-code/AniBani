@@ -6,6 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ANDROID_URL = "https://transfer.it/t/WBnuB2g1DL7L";
+const IOS_URL = "https://apps.apple.com/us/app/ani-bani/id6770994265";
 
 export default function WaitlistModal() {
   const { isOpen, close, source, prefillEmail } = useModal();
@@ -54,7 +55,11 @@ export default function WaitlistModal() {
   };
 
   const handleIosClick = () => {
-    setSelectedPlatform("ios");
+    // Previously this opened a secondary in-modal email/TestFlight view
+    // (still rendered below when selectedPlatform === "ios", kept for future use).
+    // Now it sends the user straight to the App Store, matching the Android
+    // button's open mechanism.
+    window.open(IOS_URL, "_blank", "noopener,noreferrer");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
